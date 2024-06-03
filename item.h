@@ -1,30 +1,24 @@
-#ifndef ITEM_H_
-#define ITEM_H_
+#ifndef ITEM_H
+#define ITEM_H
 
-#include <map>
 #include <string>
-#include <iostream>
-using namespace std;
 
-class Item {
+class Item
+{
 private:
-	string description;
-	string longDescription;
-	int weightGrams;
-	float value;
-	bool weaponCheck;
+    std::string name; // item name displayed on gui for items in room and in inventory if present
+    int calContent; // auto set to zero if unspecified
 
 public:
-    Item (string description, int inWeight, float inValue);
-    Item (string description);
-	string getShortDescription();
-    string getLongDescription();
-	int getWeight();
-	void setWeight(int weightGrams);
-	float getValue();
-	void setValue(float value);
-	int getWeaponCheck();
-	void setWeaponCheck(int weaponCheck);
+    Item();
+    Item(const std::string& newName, int newCalContent); //for inedible items set to negative num (nothing a bear couldnt eat, plenty bear cant digest)
+
+
+    const std::string& getName() const;
+    int getCalContent() const;
+
+    void setName(const std::string& newName);
+    void setCalContent(int newCalContent);
 };
 
-#endif /*ITEM_H_*/
+#endif // ITEM_H

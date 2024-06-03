@@ -1,0 +1,14 @@
+<RCC>
+    <qresource prefix="/">
+        <file>images/map.png</file>
+        <file>images/cave.png</file>
+        <file>images/cave_alcove.png</file>
+        <file>images/cave_entrance.png</file>
+        <file>images/forest_entrance.png</file>
+        <file>images/deep_woodlands.png</file>
+        <file>images/west_forest_border.png</file>
+        <file>images/east_forest_border.png</file>
+        <file>images/north_forest_border.png</file>
+        <file>images/cave_outskirts.png</file>
+    </qresource>
+</RCC>

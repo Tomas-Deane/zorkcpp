@@ -1,9 +1,15 @@
-// #include <iostream>
+#include "mainwindow.h"
+#include "gamelogic.h"
+#include <QApplication>
 
-// using namespace std;
+int main(int argc, char *argv[])
+{
+    QApplication a(argc, argv);
 
-// int main()
-// {
-//     cout << "Hello World!" << endl;
-//     return 0;
-// }
+    GameLogic gameLogic; // instance of GameLogic
+    MainWindow w(nullptr, &gameLogic); // Pass GL to MainWindow
+
+
+    w.show();
+    return a.exec();
+}
