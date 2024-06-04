@@ -60,8 +60,8 @@ void Player::eatItem(EdibleItem& food) {
     delete &food;
 }
 
-std::string Player::useItem(UsableItem& item) {
-    std::string output = item.getName() + " was used: " + item.getUseDescription();
+void Player::useItem(UsableItem& item) {
+    cout << item.getName() + " was used: " + item.getUseDescription() << endl;
+
     delete &item;
-    return output;
 }

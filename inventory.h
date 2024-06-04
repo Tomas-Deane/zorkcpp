@@ -1,9 +1,9 @@
 #ifndef INVENTORY_H
 #define INVENTORY_H
-using namespace std;
 #include <list>
 #include "item.h"
 
+using namespace std;
 class Inventory
 {
 private:

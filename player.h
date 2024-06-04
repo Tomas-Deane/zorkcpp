@@ -22,7 +22,7 @@ public:
     const std::string& getName() const;
 
     void eatItem(EdibleItem& food);
-    std::string useItem(UsableItem& item);
+    void useItem(UsableItem& item);
 
 
     void printStringByChar(const std::string& newName);

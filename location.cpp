@@ -16,6 +16,10 @@ Inventory& Location::getInventory() {
     return locInv;
 }
 
+EdibleInventory& Location::getEdInventory() {
+    return locEdInv;
+}
+
 void Location::setExits(const std::list<Location*>& newExits) {
     if (newExits.size() == 4) {
         exits = newExits;

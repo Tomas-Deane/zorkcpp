@@ -46,24 +46,24 @@ void GameLogic::initializeLocations() {
     locForN->setExits({ nullptr, locForMid, nullptr, nullptr });
 
     locCave->getInventory().addItem(UsableItem("Lantern", "The light from the lantern strongly illuminates the surrounding area"));
-    locCaveEnt->getInventory().addItem(EdibleItem("Bat Droppings", 15));
-    locCaveAl->getInventory().addItem(EdibleItem("Fungi", 400));
-    locForS->getInventory().addItem(EdibleItem("Fallen leaves", 5));
+    locCaveEnt->getEdInventory().addItem(EdibleItem("Bat Droppings", 15));
+    locCaveAl->getEdInventory().addItem(EdibleItem("Fungi", 400));
+    locForS->getInventory().addItem(Item("Fallen leaves"));
     locForS->getInventory().addItem(Seed<int>("Hazelnut Seed", 50, 25));
 
     if (p1.name == "Chris") { // Direct access to name varialbe due to friends concept
     locCaveOut->getInventory().addItem(EdibleItem("1000oz Ribeye Steak", 70000));
     }
 
-    locForMid->getInventory().addItem(EdibleItem("Bee Hive Wall", 600));
-    locForMid->getInventory().addItem(EdibleItem("Honey", 14000));
-    locForMid->getInventory().addItem(EdibleItem("Royal Jelly", 2700));
-    locForMid->getInventory().addItem(EdibleItem("Worker Bee", 200));
+    locForMid->getInventory().addItem(Item("Bee Hive Wall"));
+    locForMid->getEdInventory().addItem(EdibleItem("Honey", 14000));
+    locForMid->getEdInventory().addItem(EdibleItem("Royal Jelly", 2700));
+    locForMid->getInventory().addItem(Item("Worker Bee"));
     locForMid->getInventory().addItem(EdibleItem("Queen Bee", 1));
     locForMid->getInventory().addItem(EdibleItem("Bee Larvae", 150));
 
     locForE->getInventory().addItem(EdibleItem("Human Droppings", 50));
-    locForE->getInventory().addItem(Seed<std::string>("Fallen leaves", 50, "Handful"));
+    locForE->getInventory().addItem(Seed<std::string>("Cnona", 50, "Handful"));
     locForW->getInventory().addItem(EdibleItem("Raspberries", 1300));
     locForN->getInventory().addItem(EdibleItem("Deer carcass", 30000));
 
@@ -92,6 +92,10 @@ Inventory& GameLogic::getInventory() {
     return inv;
 }
 
+EdibleInventory& GameLogic::getEdInventory() {
+    return edInv;
+}
+
 Player& GameLogic::getPlayer() { // dead code right now, should add features like asking player name and using player name in dialogue.
     return p1;
 }
@@ -100,7 +104,7 @@ Player& GameLogic::getPlayer() { // dead code right now, should add features lik
 
 bool GameLogic::takeItemFromLocation(const std::string& itemName) {
     const Item* item = currentLoc->getInventory().findItem(itemName);
-    if (item) {
+    if (item->getName() == itemName) {
         // Use the Inventory copy constructor to create a new inventory excluding the item
         inv.addItem(*item); // Add the found item to the player's inventory (original behavior)
         Inventory newInv(itemName, inv); // Create a new Inventory object on the stack

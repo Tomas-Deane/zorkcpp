@@ -3,6 +3,7 @@
 #include "gamelogic.h"
 #include <QDebug>
 #include <QPixmap>
+#include <sstream>
 
 MainWindow::MainWindow(QWidget *parent, GameLogic *gameLogicPtr)
     : QMainWindow(parent)
@@ -16,6 +17,9 @@ MainWindow::MainWindow(QWidget *parent, GameLogic *gameLogicPtr)
     setMapLabel();
     updateItemLabel(); // display items at starting location
     updateInventoryLabel(); // init inventory to empty
+    updateEdInventoryLabel();
+    updateEdItemLabel();
+    updateCalories();
 }
 
 MainWindow::~MainWindow()
@@ -54,6 +58,8 @@ void MainWindow::on_northButton_clicked()
         updateDescriptionLabel();
         updateImageLabel();
         updateItemLabel();
+        updateEdInventoryLabel();
+        updateEdItemLabel();
     } else {
         qDebug() << "Cannot move North!";
     }
@@ -67,6 +73,8 @@ void MainWindow::on_westButton_clicked()
         updateDescriptionLabel();
         updateImageLabel();
         updateItemLabel();
+        updateEdInventoryLabel();
+        updateEdItemLabel();
     } else {
         qDebug() << "Cannot move West!";
     }
@@ -80,6 +88,8 @@ void MainWindow::on_eastButton_clicked()
         updateDescriptionLabel();
         updateImageLabel();
         updateItemLabel();
+        updateEdInventoryLabel();
+        updateEdItemLabel();
     } else {
         qDebug() << "Cannot move East!";
     }
@@ -93,6 +103,8 @@ void MainWindow::on_southButton_clicked()
         updateDescriptionLabel();
         updateImageLabel();
         updateItemLabel();
+        updateEdInventoryLabel();
+        updateEdItemLabel();
     } else {
         qDebug() << "Cannot move South!";
     }
@@ -116,12 +128,32 @@ void MainWindow::updateItemLabel()
     qDebug() << "ItemLabel updated to: " << QString::fromStdString(gl->getCurrentLocation()->getInventory().getStringInvList());
 }
 
+void MainWindow::updateEdItemLabel()
+{
+    ui->edItemLabel->setText(QString::fromStdString(gl->getCurrentLocation()->getEdInventory().getStringInvList()));
+    qDebug() << "ItemLabel updated to: " << QString::fromStdString(gl->getCurrentLocation()->getEdInventory().getStringInvList());
+}
+
+
 
 void MainWindow::updateInventoryLabel()
 {
 
     ui->inventoryLabel->setText(QString::fromStdString(gl->getInventory().getStringInvList()));
     qDebug() << "ItemLabel updated to: " << QString::fromStdString(gl->getInventory().getStringInvList());
+}
+
+
+void MainWindow::updateEdInventoryLabel()
+{
+
+    ui->edInventoryLabel->setText(QString::fromStdString(gl->getEdInventory().getStringInvList()));
+    qDebug() << "ItemLabel updated to: " << QString::fromStdString(gl->getEdInventory().getStringInvList());
+}
+
+void MainWindow::updateCalories() {
+    std::string calorieString = std::to_string(TOTAL_CALORIES);
+    ui->calories->setText(QString::fromStdString(calorieString));
 }
 
 void MainWindow::on_takeButton_clicked()
@@ -137,3 +169,18 @@ void MainWindow::on_takeButton_clicked()
     }
 }
 
+
+void MainWindow::on_eatButton_clicked()
+{
+    QString itemName = ui->takeItemName->text();
+    std::string itemNameS = itemName.toStdString();
+    EdibleItem* item = gl->getCurrentLocation()->getEdInventory().findItem(itemName.toStdString());
+    if (item->getName() == itemName.toStdString()) {
+        EdibleInventory newInv(itemName.toStdString(), gl->getEdInventory()); // Create a new Inventory object on the stack
+        gl->getCurrentLocation()->getEdInventory() = newInv; // Assign the new object by copy
+    gl->getPlayer().eatItem(*(gl->getCurrentLocation()->getEdInventory().findItem(itemName.toStdString())));
+    updateEdInventoryLabel();
+    updateCalories();
+}
+
+}

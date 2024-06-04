@@ -3,6 +3,7 @@
 
 #include <QMainWindow>
 #include "gamelogic.h"
+#include "player.h"
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
@@ -24,6 +25,8 @@ private slots:
 
     void on_takeButton_clicked();
 
+    void on_eatButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     GameLogic *gl;
@@ -34,6 +37,9 @@ private:
     void setMapLabel(); // just runs once on initialisation of mainwindow
     void updateItemLabel(); // update items available in room
     void updateInventoryLabel(); // update items in inventory
+    void updateEdInventoryLabel();
+    void updateEdItemLabel();
+    void updateCalories();
 };
 
 #endif // MAINWINDOW_H

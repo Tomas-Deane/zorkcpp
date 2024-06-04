@@ -1,7 +1,7 @@
 #ifndef GAMELOGIC_H
 #define GAMELOGIC_H
 
-#include "location.h"
+#include "location.h" // edible inventory is included in location
 #include "inventory.h"
 #include "player.h"
 
@@ -11,6 +11,7 @@ class GameLogic
 private:
     Location* currentLoc;
     Inventory inv;
+    EdibleInventory edInv;
     Player p1; // P One (Player One), not P L
 
     std::list<Location*> allLocations; // list of all locations for deleting them to free memory
@@ -28,6 +29,7 @@ public:
     bool takeItemFromLocation(const std::string& itemName);
 
     Inventory& getInventory();
+    EdibleInventory& getEdInventory();
 
     Player& getPlayer();
 
