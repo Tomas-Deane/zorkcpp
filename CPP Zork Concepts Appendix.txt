@@ -1,0 +1,25 @@
+CPP Zork Concepts Appendix
+
+Virtual functions			: Item.h destructor and getInfo()
+template classes			: Seed.h
+Multiple inheritance			: Seed.h
+namespaces				: player.h
+Programmer defined exceptions		: negativecalorieexception.h
+Unions					: player.cpp constructor
+Operator overloading			: 
+Abstract classes			: item.h
+Copy constructors(deep,shallow copy)	: Inventory.h
+Bit structures				:
+Advanced pre-processor directives	: seed.h
+C++ Object Construction Sequence	: for seed.h
+Initializer List			: Location.h 
+C++ References				: Inventory::findItem
+Pointers				: gameLogic::moveLocGL(int i)
+Inheritance				: edibleItem.h, useableItem.h
+Destructors				: player.cpp
+Memory management			: gameLogic::moveLocGL(int i)
+Header files (inclusion guards)		: in every header file
+Arrays and pointers			: print string by char, player.cpp
+Friendship				: Player.h declare GameLogic friend (Ln17)
+Global variables			: Player.h, int TOTAL_CALORIES (Ln27)
+Private, Public, Protected		: Protected var in Item (Ln9)

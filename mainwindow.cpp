@@ -112,8 +112,8 @@ void MainWindow::updateDescriptionLabel()
 
 void MainWindow::updateItemLabel()
 {
-    ui->itemLabel->setText(QString::fromStdString(gl->getCurrentLocation()->getStringItemList()));
-    qDebug() << "ItemLabel updated to: " << QString::fromStdString(gl->getCurrentLocation()->getStringItemList());
+    ui->itemLabel->setText(QString::fromStdString(gl->getCurrentLocation()->getInventory().getStringInvList()));
+    qDebug() << "ItemLabel updated to: " << QString::fromStdString(gl->getCurrentLocation()->getInventory().getStringInvList());
 }
 
 

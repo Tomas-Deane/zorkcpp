@@ -5,6 +5,7 @@
 #include "inventory.h"
 #include "player.h"
 
+
 class GameLogic
 {
 private:
@@ -17,14 +18,20 @@ private:
 public:
     GameLogic();
     ~GameLogic(); // Destructor for making memory free
-    bool moveLocGL(int i);
     void initializeLocations();
-    void addItemToInventory(const Item& newItem);
-    void removeItemFromInventory(const std::string& itemName);
+
+    bool moveLocGL(int i);
     Location* getCurrentLocation();
-    Inventory& getInventory();
-    //Player& getPlayer();
+
+    void addItemToInventory(const std::shared_ptr<Item>& newItem);
+    void removeItemFromInventory(const std::string& itemName);
     bool takeItemFromLocation(const std::string& itemName);
+
+    Inventory& getInventory();
+
+    Player& getPlayer();
+
+
 };
 
 #endif // GAMELOGIC_H

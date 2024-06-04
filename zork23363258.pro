@@ -9,22 +9,32 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    edibleitem.cpp \
     gamelogic.cpp \
     inventory.cpp \
     item.cpp \
     location.cpp \
     main.cpp \
     mainwindow.cpp \
-    player.cpp
+    negativecalorieexception.cpp \
+    player.cpp \
+    print_namespace.cpp \
+    seed.cpp \
+    useableitem.cpp
 
 HEADERS += \
+    edibleitem.h \
     gamelogic.h \
     inventory.h \
     item.h \
     location.h \
     main.h \
     mainwindow.h \
-    player.h
+    negativecalorieexception.h \
+    player.h \
+    print_namespace.h \
+    seed.h \
+    useableitem.h
 
 FORMS += \
     mainwindow.ui
