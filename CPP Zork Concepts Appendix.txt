@@ -3,7 +3,7 @@ CPP Zork Concepts Appendix
 Virtual functions			: Item.h destructor and getInfo()
 template classes			: Seed.h
 Multiple inheritance			: Seed.h
-namespaces				: player.h
+namespaces				: print_space
 Programmer defined exceptions		: negativecalorieexception.h
 Unions					: player.cpp constructor
 Operator overloading			: 
@@ -16,7 +16,7 @@ Initializer List			: Location.h
 C++ References				: Inventory::findItem
 Pointers				: gameLogic::moveLocGL(int i)
 Inheritance				: edibleItem.h, useableItem.h
-Destructors				: player.cpp
+Destructors				: 
 Memory management			: gameLogic::moveLocGL(int i)
 Header files (inclusion guards)		: in every header file
 Arrays and pointers			: print string by char, player.cpp
