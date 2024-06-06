@@ -1,8 +1,6 @@
 #include "Seed.h"
 #include <sstream>
 
-
-
 template <typename T>
 Seed<T>::Seed(const std::string& newName, int calories, T qty)
     : Item(newName), EdibleItem(newName, calories), UsableItem(newName, "You planted the " + newName + "."), quantity(qty) {}
@@ -13,7 +11,7 @@ Seed<T>::Seed(const std::string& newName, T qty)
 
 template <typename T>
 const std::string Seed<T>::getInfo() const {
-    return getName() + "(" + std::to_string(getCalContent()) + "kcal) (" + getUseDescription() + ")x" + getQuantityStr();
+    return getName() + " (" + std::to_string(getCalContent()) + " kcal)x" + getQuantityStr();
 }
 
 template <typename T>

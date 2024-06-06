@@ -16,9 +16,6 @@ Inventory& Location::getInventory() {
     return locInv;
 }
 
-EdibleInventory& Location::getEdInventory() {
-    return locEdInv;
-}
 
 void Location::setExits(const std::list<Location*>& newExits) {
     if (newExits.size() == 4) {
@@ -32,6 +29,10 @@ const std::string& Location::getName() const {
 
 const std::string& Location::getDescription() const {
     return description;
+}
+
+void Location::setDescription(std::string desc) {
+    description = desc;
 }
 
 const std::list<Location*>& Location::getExits() const {

@@ -1,6 +1,7 @@
 #ifndef PLAYER_H
 #define PLAYER_H
 
+#include <memory>
 #include <string>
 #include "edibleItem.h"
 #include "useableitem.h"
@@ -8,7 +9,6 @@
 class Player {
 private:
     std::string name;
-    int calories;
     float height;
 
 public:
@@ -17,12 +17,11 @@ public:
     // CPP Concept: Friends
     friend class GameLogic;
 
-    void setCalories(int cal);
-    int getCalories() const;
     const std::string& getName() const;
 
-    void eatItem(EdibleItem& food);
-    void useItem(UsableItem& item);
+    void eatItem(std::shared_ptr<EdibleItem> food);
+    void useItem(std::shared_ptr<UsableItem> item);
+
 
 
     void printStringByChar(const std::string& newName);

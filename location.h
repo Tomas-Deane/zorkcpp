@@ -6,7 +6,6 @@
 #include <memory>
 #include "Item.h"
 #include "Inventory.h"
-#include "edibleinventory.h"
 
 class Location {
 private:
@@ -14,7 +13,6 @@ private:
     std::string description;
     std::list<Location*> exits;
     Inventory locInv;
-    EdibleInventory locEdInv;
     std::string imagePath;
 
 public:
@@ -23,12 +21,12 @@ public:
     Location* moveLoc(int exit);
 
     Inventory& getInventory();
-    EdibleInventory& getEdInventory();
 
     void setExits(const std::list<Location*>& newExits);
 
     const std::string& getName() const;
     const std::string& getDescription() const;
+    void setDescription(std::string desc);
     const std::list<Location*>& getExits() const;
     const std::list<std::shared_ptr<Item>>& getItems() const;
     const std::string& getImagePath() const;

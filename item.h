@@ -3,9 +3,9 @@
 
 #include <string>
 
-class Item // This is  an abstract class because it contains one pure virtual function
+class Item // This is an abstract class because it contains one pure virtual function
 {
-protected: // PROTECTED CONCEPT
+protected:
     std::string name; // item name displayed on gui for items in room and in inventory if present
 
 public:
@@ -13,7 +13,7 @@ public:
 
     virtual ~Item() = default;
 
-    virtual const std::string getInfo() const;
+    virtual const std::string getInfo() const = 0;
 
     const std::string& getName() const;
     void setName(const std::string& newName);

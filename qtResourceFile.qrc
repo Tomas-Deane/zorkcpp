@@ -10,5 +10,6 @@
         <file>images/east_forest_border.png</file>
         <file>images/north_forest_border.png</file>
         <file>images/cave_outskirts.png</file>
+	<file>images/human_settlement.png</file>
     </qresource>
 </RCC>

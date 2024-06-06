@@ -3,7 +3,7 @@
 
 #include "Item.h"
 
-class UsableItem : virtual public Item { // Changed to public inheritance
+class UsableItem : virtual public Item {
 private:
     std::string useDescription;
 

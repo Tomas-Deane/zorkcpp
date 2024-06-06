@@ -17,8 +17,7 @@ MainWindow::MainWindow(QWidget *parent, GameLogic *gameLogicPtr)
     setMapLabel();
     updateItemLabel(); // display items at starting location
     updateInventoryLabel(); // init inventory to empty
-    updateEdInventoryLabel();
-    updateEdItemLabel();
+
     updateCalories();
 }
 
@@ -58,8 +57,8 @@ void MainWindow::on_northButton_clicked()
         updateDescriptionLabel();
         updateImageLabel();
         updateItemLabel();
-        updateEdInventoryLabel();
-        updateEdItemLabel();
+
+
     } else {
         qDebug() << "Cannot move North!";
     }
@@ -73,8 +72,8 @@ void MainWindow::on_westButton_clicked()
         updateDescriptionLabel();
         updateImageLabel();
         updateItemLabel();
-        updateEdInventoryLabel();
-        updateEdItemLabel();
+
+
     } else {
         qDebug() << "Cannot move West!";
     }
@@ -88,8 +87,8 @@ void MainWindow::on_eastButton_clicked()
         updateDescriptionLabel();
         updateImageLabel();
         updateItemLabel();
-        updateEdInventoryLabel();
-        updateEdItemLabel();
+
+
     } else {
         qDebug() << "Cannot move East!";
     }
@@ -103,8 +102,8 @@ void MainWindow::on_southButton_clicked()
         updateDescriptionLabel();
         updateImageLabel();
         updateItemLabel();
-        updateEdInventoryLabel();
-        updateEdItemLabel();
+
+
     } else {
         qDebug() << "Cannot move South!";
     }
@@ -124,35 +123,32 @@ void MainWindow::updateDescriptionLabel()
 
 void MainWindow::updateItemLabel()
 {
-    ui->itemLabel->setText(QString::fromStdString(gl->getCurrentLocation()->getInventory().getStringInvList()));
-    qDebug() << "ItemLabel updated to: " << QString::fromStdString(gl->getCurrentLocation()->getInventory().getStringInvList());
+    std::string text = gl->getCurrentLocation()->getInventory().getStringInvList();
+    if (text.length() > 1) {
+        ui->itemLabel->setText(QString::fromStdString(text));
+    } else {
+        ui->itemLabel->setText(QString::fromStdString("This location has no items"));
+    }
+    qDebug() << "itemLabel updated to: " << QString::fromStdString(text);
 }
-
-void MainWindow::updateEdItemLabel()
-{
-    ui->edItemLabel->setText(QString::fromStdString(gl->getCurrentLocation()->getEdInventory().getStringInvList()));
-    qDebug() << "ItemLabel updated to: " << QString::fromStdString(gl->getCurrentLocation()->getEdInventory().getStringInvList());
-}
-
 
 
 void MainWindow::updateInventoryLabel()
 {
-
-    ui->inventoryLabel->setText(QString::fromStdString(gl->getInventory().getStringInvList()));
-    qDebug() << "ItemLabel updated to: " << QString::fromStdString(gl->getInventory().getStringInvList());
+    std::string text = gl->getInventory().getStringInvList();
+    if (text.length() > 1) {
+    ui->inventoryLabel->setText(QString::fromStdString(text));
+    } else {
+        ui->inventoryLabel->setText(QString::fromStdString("Your Inventory is Empty"));
+    }
+    qDebug() << "InventoryLabel updated to: " << QString::fromStdString(text);
 }
 
 
-void MainWindow::updateEdInventoryLabel()
-{
-
-    ui->edInventoryLabel->setText(QString::fromStdString(gl->getEdInventory().getStringInvList()));
-    qDebug() << "ItemLabel updated to: " << QString::fromStdString(gl->getEdInventory().getStringInvList());
-}
 
 void MainWindow::updateCalories() {
     std::string calorieString = std::to_string(TOTAL_CALORIES);
+    calorieString = "Calories: " + calorieString;
     ui->calories->setText(QString::fromStdString(calorieString));
 }
 
@@ -162,7 +158,6 @@ void MainWindow::on_takeButton_clicked()
     if (gl->takeItemFromLocation(itemName.toStdString())) {
         updateItemLabel();
         updateInventoryLabel();
-        ui->takeItemName->clear();
         qDebug() << "Item taken: " << itemName;
     } else {
         qDebug() << "Item not found: " << itemName;
@@ -174,13 +169,48 @@ void MainWindow::on_eatButton_clicked()
 {
     QString itemName = ui->takeItemName->text();
     std::string itemNameS = itemName.toStdString();
-    EdibleItem* item = gl->getCurrentLocation()->getEdInventory().findItem(itemName.toStdString());
-    if (item->getName() == itemName.toStdString()) {
-        EdibleInventory newInv(itemName.toStdString(), gl->getEdInventory()); // Create a new Inventory object on the stack
-        gl->getCurrentLocation()->getEdInventory() = newInv; // Assign the new object by copy
-    gl->getPlayer().eatItem(*(gl->getCurrentLocation()->getEdInventory().findItem(itemName.toStdString())));
-    updateEdInventoryLabel();
-    updateCalories();
+    auto item = gl->getInventory().findItem(itemNameS);
+    if (item && item->getName() == itemNameS) {
+        // Check if the item is edible
+        std::shared_ptr<EdibleItem> edibleItem = std::dynamic_pointer_cast<EdibleItem>(item);
+        if (edibleItem) {
+            // Create a new inventory excluding the item
+            Inventory newInv(itemNameS, gl->getInventory()); // Create a new Inventory object on the stack
+            gl->getInventory() = newInv; // Assign the new object by copy
+            // Player eats the item
+            gl->getPlayer().eatItem(edibleItem);
+
+            // Updates
+            ui->takeItemName->clear();
+            updateCalories();
+            updateInventoryLabel();
+        } else {
+            qDebug() << "Item not edible: " << itemName;
+        }
+    } else {
+        qDebug() << "Item not found: " << itemName;
+    }
 }
 
+void MainWindow::on_useButton_clicked() {
+    QString itemName = ui->takeItemName->text();
+    std::string itemNameS = itemName.toStdString();
+    auto item = gl->getInventory().findItem(itemNameS);
+    if (item && item->getName() == itemNameS) {
+        // Check if the item is usable
+        std::shared_ptr<UsableItem> usableItem = std::dynamic_pointer_cast<UsableItem>(item);
+        if (usableItem) {
+
+            // Updates
+            ui->takeItemName->clear();
+            updateInventoryLabel();
+            ui->recentItemUse->setText(QString::fromStdString(usableItem->getUseDescription()));
+
+        } else {
+            qDebug() << "Item not usable: " << itemName;
+        }
+    } else {
+        qDebug() << "Item not found: " << itemName;
+    }
 }
+

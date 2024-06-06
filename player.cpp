@@ -41,27 +41,11 @@ void Player::printStringByChar(const std::string& newName) { // POINTERS AND ARR
 }
 
 
-void Player::setCalories(int calories) { // still using setter for game logic
-    this->calories = calories;
-    TOTAL_CALORIES = calories; // Update global total
-}
-
-int Player::getCalories() const {
-    return this->calories;
-}
-
 const std::string& Player::getName() const {
     return this->name;
 }
 
-void Player::eatItem(EdibleItem& food) {
-    TOTAL_CALORIES += food.getCalContent();
-    cout << "Object " << food.getName() << " was eaten." << endl;
-    delete &food;
-}
-
-void Player::useItem(UsableItem& item) {
-    cout << item.getName() + " was used: " + item.getUseDescription() << endl;
-
-    delete &item;
+void Player::eatItem(std::shared_ptr<EdibleItem> food) {
+    TOTAL_CALORIES += food->getCalContent();
+    std::cout << "Object " << food->getName() << " was eaten." << endl;
 }

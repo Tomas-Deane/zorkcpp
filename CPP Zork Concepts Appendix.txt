@@ -7,7 +7,7 @@ namespaces				: player.h
 Programmer defined exceptions		: negativecalorieexception.h
 Unions					: player.cpp constructor
 Operator overloading			: 
-Abstract classes			: item.h
+Abstract classes			:
 Copy constructors(deep,shallow copy)	: Inventory.h
 Bit structures				:
 Advanced pre-processor directives	: seed.h

@@ -6,7 +6,7 @@
 
 //#define Default_Cal 10 // TOGGLE ADVANCED PREPROCESSOR DIRECTIVES
 
-#ifndef Default_cal
+#ifndef Default_Cal
 #warning "Default Calories was not defined in Seed class"
 #define Default_Cal 10
 #endif
@@ -23,6 +23,9 @@ public:
     const std::string getInfo() const override;
     T getQuantity() const;
     std::string getQuantityStr() const;
+
+    // Use getName() from a specific base class to avoid ambiguity
+    using Item::getName;
 };
 
 #endif // SEED_H

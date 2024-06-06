@@ -5,7 +5,7 @@ UsableItem::UsableItem(const std::string& newName, const std::string& newUseDesc
 }
 
 const std::string UsableItem::getInfo() const {
-    return name + " (" + useDescription + ")";
+    return name + " (Usable)";
 }
 
 const std::string& UsableItem::getUseDescription() const {

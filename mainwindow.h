@@ -27,6 +27,8 @@ private slots:
 
     void on_eatButton_clicked();
 
+    void on_useButton_clicked();
+
 private:
     Ui::MainWindow *ui;
     GameLogic *gl;
